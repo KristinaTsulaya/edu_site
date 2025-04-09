@@ -1,0 +1,10 @@
+{% extends 'flashcards/base.html' %}
+{% block content %}
+<h2>Список карточек</h2>
+<table class="table table-bordered">
+  <tr><th>Слово</th><th>Перевод</th></tr>
+  {% for card in cards %}
+    <tr><td>{{ card.word }}</td><td>{{ card.translation }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

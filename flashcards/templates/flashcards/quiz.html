@@ -1,0 +1,22 @@
+{% extends 'flashcards/base.html' %}
+{% block content %}
+  <h2>Тренажёр</h2>
+  {% if message %}
+    <p>{{ message }}</p>
+  {% else %}
+    {% if result is not none %}
+      {% if result %}
+        <p>✅ Right!</p>
+      {% else %}
+        <p>❌ Try again.</p>
+      {% endif %}
+    {% endif %}
+    <p>Переведите слово: <strong>{{ card.word }}</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="correct" value="{{ card.translation }}">
+      <input type="text" name="answer" class="form-control mb-2" placeholder="Введите перевод">
+      <button type="submit" class="btn btn-success">Проверить</button>
+    </form>
+  {% endif %}
+{% endblock %}
