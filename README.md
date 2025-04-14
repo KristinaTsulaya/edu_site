@@ -6,9 +6,10 @@
 
 ## 🛠 Технологии
 
-- Django 4.x
+- Django 4.x + DRF 
 - SQLite (встроенная БД)
 - Bootstrap 5 (через CDN)
+- HTML
 
 ## 📸 Возможности
 
@@ -16,7 +17,8 @@
 - Добавление карточек (форма)
 - Просмотр карточек (таблица)
 - Тренажёр для проверки перевода слов
-- Валидация форм
+- Поиск слов по базе карточек
+- Быстрый старт обучения
 
 ## 📂 Страницы
 
@@ -39,19 +41,13 @@ cd edu_site
 2. Установи зависимости:
 
 ```bash
-pip install -r requirements.txt
+python3.9 -m pip install -r requirements.txt
 ```
 
-3. Выполни миграции:
+3. Запусти сервер:
 
 ```bash
-python manage.py migrate
+python3.9 manage.py runserver
 ```
 
-4. Запусти сервер:
-
-```bash
-python manage.py runserver
-```
-
-5. Открой окно в браузере: http://localhost:8000
+4. Открой окно в браузере: http://localhost:8000
