@@ -9,7 +9,8 @@ urlpatterns = [
     path('quiz/', views.quiz, name='quiz'),
     path('delete/<int:card_id>/', views.delete_card, name='delete_card'),
     path('populate/', views.populate_flashcards, name='populate_flashcards'),
-    
+    path('check-word/', views.check_word, name='check_word'),
+
     path('api/flashcards/', FlashcardListCreateAPIView.as_view(), name='api_flashcards'),
-    path('api/word-of-the-day/', WordOfTheDayAPIView.as_view(), name='word_of_the_day')
+    path('api/word-of-the-day/', WordOfTheDayAPIView.as_view(), name='word_of_the_day'),
 ]

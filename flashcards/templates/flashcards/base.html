@@ -192,9 +192,21 @@
 </head>
 <body>
   <div class="main-container">
-    <header class="brand-header">
-      <h1 class="gold-underline">Lang master</h1>
+    <header class="brand-header d-flex align-items-center px-3 py-2">
+      <a href="{% url 'index' %}" class="text-decoration-none text-dark fs-4 fw-bold">Lang master</a>
     </header>
+    
+
+    <style>
+      .no-style-link {
+        text-decoration: none; /* Убирает подчеркивание */
+        color: inherit; /* Наследует цвет от родителя */
+      }
+    
+      .no-style-link:hover {
+        color: inherit; /* Сохраняет цвет при наведении */
+      }
+    </style>
 
     <nav class="nav-premium">
       <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %} hover-3d">

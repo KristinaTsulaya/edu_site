@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
 from .forms import FlashcardForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import random
 
 def view_cards(request):
@@ -45,6 +45,12 @@ def index(request):
         'total_cards': total_cards,
     }
     return render(request, 'flashcards/index.html', context)
+
+def check_word(request):
+    word = request.GET.get('word', '').strip().lower()
+    word_exists = Flashcard.objects.filter(word=word).exists()
+    
+    return JsonResponse({'exists': word_exists})
 
 def populate_flashcards(request):
     cards = [

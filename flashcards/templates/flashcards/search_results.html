@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Поиск слов</h2>
+    
+    <form method="GET" action="{% url 'search' %}">
+      <input type="text" name="search" value="{{ query }}" placeholder="Введите слово" class="form-control">
+      <button type="submit" class="btn btn-primary">Поиск</button>
+    </form>
+    
+    {% if results %}
+      <h3>Результаты поиска:</h3>
+      <ul>
+        {% for card in results %}
+          <li>{{ card.word }} - {{ card.translation }}</li>
+        {% empty %}
+          <p>По вашему запросу ничего не найдено.</p>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Введите слово для поиска.</p>
+    {% endif %}
+  </div>
+  

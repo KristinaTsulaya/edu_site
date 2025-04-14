@@ -32,13 +32,65 @@
       <p class="mb-0 text-dark" id="word-of-day">Загрузка слова дня...</p>
     </div>
   </div>
+
+  <div class="col-md-4 col-sm-12">
+    <div class="stat-card hover-3d p-4 text-center bg-white rounded-3">
+      <h3 class="text-accent mb-3">🔍 Найдите слово</h3>
+      <input type="text" id="word-search" class="form-control mb-3" placeholder="Введите слово...">
+      <div id="word-result">
+        <p class="mb-0 text-dark" id="word-message">Введите слово для поиска.</p>
+        <button id="add-word-btn" class="btn btn-primary d-none">Добавить в словарь</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  // Получаем элементы для манипуляций
+  const wordInput = document.getElementById('word-search');
+  const wordMessage = document.getElementById('word-message');
+  const addWordBtn = document.getElementById('add-word-btn');
+  
+  // Функция для запроса на сервер
+  const checkWord = (word) => {
+    fetch(`/check-word/?word=${word}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.exists) {
+          wordMessage.innerHTML = `Слово <strong>${word}</strong> уже есть в словаре!`;
+          addWordBtn.classList.add('d-none');  // Скрываем кнопку "Добавить"
+        } else {
+          wordMessage.innerHTML = `Слово <strong>${word}</strong> не найдено.`;
+          addWordBtn.classList.remove('d-none');  // Показываем кнопку "Добавить"
+        }
+      })
+      .catch(error => {
+        console.error('Ошибка при проверке слова:', error);
+      });
+  };
+
+  // Слушаем изменения в поле ввода
+  wordInput.addEventListener('input', () => {
+    const word = wordInput.value.trim().toLowerCase();
+    if (word) {
+      checkWord(word);  // Проверяем слово
+    } else {
+      wordMessage.innerHTML = 'Введите слово для поиска.';
+      addWordBtn.classList.add('d-none');
+    }
+  });
+
+  // Кнопка для добавления слова в словарь
+  addWordBtn.addEventListener('click', () => {
+    window.location.href = "{% url 'add_card' %}";  // Перенаправляем на страницу добавления карточки
+  });
+</script>
 
 <!-- Карточка для быстрого старта, которая будет под двумя вышеупомянутыми карточками -->
 <div class="row mb-5">
   <div class="col-12">
     <a href="{% url 'add_card' %}" class="card-link text-decoration-none">
-      <div class="action-card bg-primary-dark text-white p-3 p-lg-5 rounded-3 hover-3d">
+      <div class="action-card bg-primary-dark text-white p-3 p-lg-5 rounded-3">
         <h3 class="mb-3 mb-lg-4 fs-4 fs-lg-3">Быстрый старт</h3>
         <p class="opacity-75 mb-3 mb-lg-4 fs-6 fs-lg-5">
           Создайте свою первую карточку за 1 минуту
