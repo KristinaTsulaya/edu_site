@@ -6,10 +6,10 @@
 
 ## Технологии
 
-- Django 4.x + DRF 
+- Django + Django REST Framework (API).
 - SQLite (встроенная БД)
-- Bootstrap 5 (через CDN)
-- HTML
+- Bootstrap 5, кастомный CSS, JavaScript (AJAX, анимации)
+- Хэширование (hashlib) для генерации "слова дня".
 
 ## Возможности
 
