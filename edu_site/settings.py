@@ -207,9 +207,9 @@ USE_TZ = True
 # Статические файлы (Bootstrap подгружается через CDN, но если будет локальный CSS — сюда)
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
 
 # Импорт настроек по умолчанию
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
