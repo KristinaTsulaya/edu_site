@@ -1,0 +1,11 @@
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+
+# Django
+db.sqlite3
+
+# Migrations (если вы не хотите их трекать до первого коммита)
+*/migrations/
