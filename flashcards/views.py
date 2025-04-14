@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
 from .forms import FlashcardForm
 import random
@@ -34,3 +34,16 @@ def quiz(request):
         result = (user_answer == correct)
 
     return render(request, 'flashcards/quiz.html', {'card': card, 'result': result})
+
+def delete_card(request, card_id):
+    card = get_object_or_404(Flashcard, id=card_id)
+    if request.method == 'POST':
+        card.delete()
+    return redirect('view_cards')
+
+def index(request):
+    total_cards = Flashcard.objects.count()
+    context = {
+        'total_cards': total_cards,
+    }
+    return render(request, 'flashcards/index.html', context)

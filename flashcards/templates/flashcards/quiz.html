@@ -1,22 +1,28 @@
 {% extends 'flashcards/base.html' %}
+
+{% block title %}Тренажёр{% endblock %}
+
 {% block content %}
-  <h2>Тренажёр</h2>
-  {% if message %}
-    <p>{{ message }}</p>
-  {% else %}
-    {% if result is not none %}
-      {% if result %}
-        <p>✅ Right!</p>
-      {% else %}
-        <p>❌ Try again.</p>
-      {% endif %}
+<h2 class="text-center">Тренажёр</h2>
+
+{% if message %}
+  <div class="alert alert-info">{{ message }}</div>
+{% else %}
+  {% if result is not none %}
+    {% if result %}
+      <div class="alert alert-success">✅ Правильный ответ!</div>
+    {% else %}
+      <div class="alert alert-danger">❌ Неправильный ответ, попробуйте снова.</div>
     {% endif %}
-    <p>Переведите слово: <strong>{{ card.word }}</strong></p>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="correct" value="{{ card.translation }}">
-      <input type="text" name="answer" class="form-control mb-2" placeholder="Введите перевод">
-      <button type="submit" class="btn btn-success">Проверить</button>
-    </form>
   {% endif %}
+
+  <p class="text-center">Переведите слово: <strong>{{ card.word }}</strong></p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="correct" value="{{ card.translation }}">
+    <input type="text" name="answer" class="form-control" placeholder="Введите перевод" required>
+    <button type="submit" class="btn btn-success w-100">Проверить</button>
+  </form>
+{% endif %}
 {% endblock %}

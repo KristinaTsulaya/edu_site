@@ -31,12 +31,13 @@
 # # Application definition
 
 # INSTALLED_APPS = [
-#     'django.contrib.admin',
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
+#     # 'django.contrib.admin',
+#     # 'django.contrib.auth',
+#     # 'django.contrib.contenttypes',
+#     # 'django.contrib.sessions',
+#     # 'django.contrib.messages',
+#     # 'django.contrib.staticfiles',
+#     "rest_framework"
 # ]
 
 # MIDDLEWARE = [
@@ -204,6 +205,10 @@ USE_TZ = True
 
 # Статические файлы (Bootstrap подгружается через CDN, но если будет локальный CSS — сюда)
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Импорт настроек по умолчанию
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

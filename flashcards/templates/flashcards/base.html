@@ -2,18 +2,221 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Учебный сервис</title>
+  <title>LangMaster</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-dark: #1a2332;
+      --accent-gold: #c5a47e;
+      --gradient-bg: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+      --text-dark: #2d3436;
+      --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    body {
+      background: var(--gradient-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .brand-header h1 {
+      font-weight: 600;
+      color: var(--primary-dark);
+      font-size: 2.5rem;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .brand-header h1:after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--accent-gold);
+    }
+
+    .nav-premium {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .nav-premium a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid rgba(197,164,126,0.2);
+    }
+
+    .nav-premium a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      color: var(--accent-gold);
+    }
+
+    .nav-premium a.active {
+      background: var(--primary-dark);
+      color: white !important;
+      box-shadow: 0 4px 15px rgba(26,35,50,0.3);
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(197,164,126,0.2);
+      margin: 2.5rem 0;
+      position: relative;
+    }
+
+    .divider:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -2px;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: var(--accent-gold);
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 1.5rem;
+      }
+      
+      .nav-premium {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .nav-premium a {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Премиум-эффекты */
+    .hover-3d {
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .hover-3d:hover {
+      transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) scale(1.02);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.08);
+    }
+
+    .gold-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .gold-underline:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-gold);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .gold-underline:hover:after {
+      transform: scaleX(1);
+    }
+
+    .premium-btn {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #2d3436 100%);
+      color: white !important;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .premium-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.2),
+        transparent
+      );
+      transition: left 0.6s;
+    }
+
+    .premium-btn:hover:before {
+      left: 100%;
+    }
+
+  </style>
+  {% block extra_css %}{% endblock %}
 </head>
-<body class="p-4">
-  <h1>Учебный сервис</h1>
-  <nav class="mb-3">
-    <a href="{% url 'index' %}">Главная</a> |
-    <a href="{% url 'add_card' %}">Добавить карточку</a> |
-    <a href="{% url 'view_cards' %}">Карточки</a> |
-    <a href="{% url 'quiz' %}">Тренажёр</a>
-  </nav>
-  <hr>
-  {% block content %}{% endblock %}
+<body>
+  <div class="main-container">
+    <header class="brand-header">
+      <h1 class="gold-underline">Lang master</h1>
+    </header>
+
+    <nav class="nav-premium">
+      <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %} hover-3d">
+        <span>Главная</span>
+      </a>
+      <a href="{% url 'add_card' %}" class="{% if request.resolver_match.url_name == 'add_card' %}active{% endif %} hover-3d">
+        <span>Добавить</span>
+      </a>
+      <a href="{% url 'view_cards' %}" class="{% if request.resolver_match.url_name == 'view_cards' %}active{% endif %} hover-3d">
+        <span>Карточки</span>
+      </a>
+      <a href="{% url 'quiz' %}" class="{% if request.resolver_match.url_name == 'quiz' %}active{% endif %} hover-3d">
+        <span>Тренажёр</span>
+      </a>
+    </nav>
+
+    <div class="divider"></div>
+
+    {% block content %}{% endblock %}
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

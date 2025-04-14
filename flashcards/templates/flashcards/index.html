@@ -1,5 +1,163 @@
 {% extends 'flashcards/base.html' %}
 {% block content %}
-<h2>Добро пожаловать!</h2>
-<p>Выберите страницу из меню.</p>
-{% endblock %}
+<section class="welcome-section text-center mb-5">
+  <div class="hero-content">
+    <h2 class="display-4 fw-bold mb-4 gold-underline animate__animated animate__fadeInDown">
+      Совершенствуйте знания с умом
+    </h2>
+    <p class="lead text-muted mb-4 animate__animated animate__fadeIn animate__delay-1s">
+      Система обучения иностранному языку и тренировки словарного запаса
+    </p>
+    <a href="{% url 'quiz' %}" class="premium-btn hover-3d animate__animated animate__fadeInUp animate__delay-2s">
+      Начать обучение
+    </a>
+  </div>
+</section>
+
+<div class="dashboard-stats row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="stat-card hover-3d p-4 text-center bg-white rounded-3">
+        <h3 class="text-accent mb-3">📚</h3>
+        <p class="mb-0 text-dark">Карточек в базе: {{ total_cards }}</p>
+        <div class="progress mt-2" style="height: 4px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="quick-actions">
+    <div class="row g-3 g-md-4">
+      <div class="col-12 col-md-8 col-lg-6 mx-auto">
+        <a href="{% url 'add_card' %}" class="card-link text-decoration-none">
+          <div class="action-card bg-primary-dark text-white p-3 p-lg-5 rounded-3 hover-3d">
+            <h3 class="mb-3 mb-lg-4 fs-4 fs-lg-3">
+              Быстрый старт
+            </h3>
+            <p class="opacity-75 mb-3 mb-lg-4 fs-6 fs-lg-5">
+              Создайте свою первую карточку за 1 минуту
+            </p>
+            <div class="d-flex justify-content-center">
+              <span class="premium-btn btn-light px-3 py-2 px-lg-4 py-lg-3 fs-6 fs-lg-5">
+                Добавить карточку
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+</section>
+
+
+  
+  <style>
+    /* Общие стили для карточек */
+    .card-link {
+        text-decoration: none;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        display: block;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .card-link:hover {
+        transform: translateY(-8px);
+    }
+    
+    .action-card {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Стиль для "Быстрого старта" */
+    .bg-primary-dark {
+        background: linear-gradient(135deg, #1a2332 0%, #2d3436 100%);
+    }
+    
+    /* Стиль для прогресса */
+    .bg-accent {
+        background: linear-gradient(45deg, #c5a47e 0%, #d4b798 100%);
+    }
+    
+    /* Эффект блеска при наведении */
+    .action-card:after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(255,255,255,0.1),
+            transparent
+        );
+        transform: rotate(45deg);
+        animation: shine 4s infinite;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    
+    .card-link:hover .action-card:after {
+        opacity: 1;
+    }
+    
+    @keyframes shine {
+        0% { left: -50%; }
+        100% { left: 150%; }
+    }
+    
+    /* Стили для прогресс-круга */
+    .progress-circle {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        border-radius: 50%;
+        background: conic-gradient(
+            #1a2332 0% calc(var(--progress)*1%),
+            rgba(255,255,255,0.2) calc(var(--progress)*1%) 100%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+    }
+    
+    .progress-circle:before {
+        content: attr(data-progress)"%";
+        position: absolute;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: white;
+    }
+    
+    /* Стиль для кнопки */
+    .premium-btn.btn-light {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .card-link:hover .premium-btn.btn-light {
+        background: rgba(255,255,255,0.25);
+        transform: scale(1.05);
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 992px) {
+        .action-card {
+            padding: 2rem !important;
+        }
+        
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    </style>
+  {% endblock %}
