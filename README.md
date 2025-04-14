@@ -32,8 +32,8 @@
 1. Клонируй проект:
 
 ```bash
-git clone https://github.com/ваш-пользователь/ваш-репозиторий.git
-cd ваш-репозиторий
+git clone https://github.com/KristinaTsulaya/edu_site
+cd edu_site
 ```
 
 2. Установи зависимости:

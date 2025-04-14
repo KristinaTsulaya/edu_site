@@ -15,37 +15,60 @@
 </section>
 
 <div class="dashboard-stats row g-4 mb-5">
-    <div class="col-md-4">
+  <!-- Карточка для количества карточек -->
+  <div class="col-md-4 col-sm-12">
+    <a href="{% url 'view_cards' %}" class="text-decoration-none">
       <div class="stat-card hover-3d p-4 text-center bg-white rounded-3">
         <h3 class="text-accent mb-3">📚</h3>
         <p class="mb-0 text-dark">Карточек в базе: {{ total_cards }}</p>
-        <div class="progress mt-2" style="height: 4px;">
-        </div>
       </div>
-    </div>
+    </a>
   </div>
 
-  <section class="quick-actions">
-    <div class="row g-3 g-md-4">
-      <div class="col-12 col-md-8 col-lg-6 mx-auto">
-        <a href="{% url 'add_card' %}" class="card-link text-decoration-none">
-          <div class="action-card bg-primary-dark text-white p-3 p-lg-5 rounded-3 hover-3d">
-            <h3 class="mb-3 mb-lg-4 fs-4 fs-lg-3">
-              Быстрый старт
-            </h3>
-            <p class="opacity-75 mb-3 mb-lg-4 fs-6 fs-lg-5">
-              Создайте свою первую карточку за 1 минуту
-            </p>
-            <div class="d-flex justify-content-center">
-              <span class="premium-btn btn-light px-3 py-2 px-lg-4 py-lg-3 fs-6 fs-lg-5">
-                Добавить карточку
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
+  <!-- Карточка для слова дня -->
+  <div class="col-md-4 col-sm-12">
+    <div class="stat-card hover-3d p-4 text-center bg-white rounded-3">
+      <h3 class="text-accent mb-3">🗣️</h3>
+      <p class="mb-0 text-dark" id="word-of-day">Загрузка слова дня...</p>
     </div>
-</section>
+  </div>
+</div>
+
+<!-- Карточка для быстрого старта, которая будет под двумя вышеупомянутыми карточками -->
+<div class="row mb-5">
+  <div class="col-12">
+    <a href="{% url 'add_card' %}" class="card-link text-decoration-none">
+      <div class="action-card bg-primary-dark text-white p-3 p-lg-5 rounded-3 hover-3d">
+        <h3 class="mb-3 mb-lg-4 fs-4 fs-lg-3">Быстрый старт</h3>
+        <p class="opacity-75 mb-3 mb-lg-4 fs-6 fs-lg-5">
+          Создайте свою первую карточку за 1 минуту
+        </p>
+        <div class="d-flex justify-content-center">
+          <span class="premium-btn btn-light px-3 py-2 px-lg-4 py-lg-3 fs-6 fs-lg-5">
+            Добавить карточку
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+  // Запрос для получения слова дня с API
+  fetch('/api/word-of-the-day/')
+    .then(response => response.json())
+    .then(data => {
+      // Отображаем полученные данные в соответствующем блоке
+      const wordOfDay = document.getElementById('word-of-day');
+      wordOfDay.innerHTML = `Слово дня: <strong>${data.word}`;
+    })
+    .catch(error => {
+      console.error('Ошибка при загрузке слова дня:', error);
+      const wordOfDay = document.getElementById('word-of-day');
+      wordOfDay.innerHTML = 'Не удалось загрузить слово дня';
+    });
+</script>
+
 
 
   

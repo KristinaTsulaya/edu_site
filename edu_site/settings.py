@@ -37,7 +37,6 @@
 #     # 'django.contrib.sessions',
 #     # 'django.contrib.messages',
 #     # 'django.contrib.staticfiles',
-#     "rest_framework"
 # ]
 
 # MIDDLEWARE = [
@@ -142,7 +141,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'flashcards',  # ← наше приложение
+    'flashcards',  #наше приложение
+    "rest_framework"
+
 ]
 
 # Middleware
@@ -212,3 +213,9 @@ STATICFILES_DIRS = [
 
 # Импорт настроек по умолчанию
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',  # Это обеспечит отдачу JSON вместо HTML
+    ],
+}

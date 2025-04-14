@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Flashcard
 from .forms import FlashcardForm
+from django.http import HttpResponse
 import random
-
-def index(request):
-    return render(request, 'flashcards/index.html')
 
 def view_cards(request):
     cards = Flashcard.objects.all()
@@ -47,3 +45,35 @@ def index(request):
         'total_cards': total_cards,
     }
     return render(request, 'flashcards/index.html', context)
+
+def populate_flashcards(request):
+    cards = [
+        ("apple", "яблоко"),
+        ("dog", "собака"),
+        ("sun", "солнце"),
+        ("moon", "луна"),
+        ("house", "дом"),
+        ("car", "машина"),
+        ("tree", "дерево"),
+        ("water", "вода"),
+        ("book", "книга"),
+        ("phone", "телефон"),
+        ("chair", "стул"),
+        ("table", "стол"),
+        ("door", "дверь"),
+        ("window", "окно"),
+        ("pen", "ручка"),
+        ("pencil", "карандаш"),
+        ("school", "школа"),
+        ("student", "студент"),
+        ("teacher", "учитель"),
+        ("computer", "компьютер"),
+    ]
+
+    created = 0
+    for word, translation in cards:
+        if not Flashcard.objects.filter(word=word, translation=translation).exists():
+            Flashcard.objects.create(word=word, translation=translation)
+            created += 1
+
+    return HttpResponse(f"{created} карточек добавлено!")

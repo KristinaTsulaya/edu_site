@@ -12,12 +12,12 @@ class FlashcardForm(forms.ModelForm):
         }
     def clean_word(self):
         word = self.cleaned_data['word']
-        if not re.match(r'^[а-яА-Я\s]+$', word):
-            raise forms.ValidationError("Поле должно содержать только символы кириллицы и пробелы.")
+        if not re.match(r'^[a-zA-Z\s]+$', word):
+            raise forms.ValidationError("Поле должно содержать только латинские символы и пробелы.")
         return word
 
     def clean_translation(self):
         translation = self.cleaned_data['translation']
-        if not re.match(r'^[a-zA-Z\s]+$', translation):
-            raise forms.ValidationError("Поле должно содержать только латинские символы и пробелы.")
+        if not re.match(r'^[а-яА-Я\s]+$', translation):
+            raise forms.ValidationError("Поле должно содержать только символы кириллицы и пробелы.")
         return translation
